@@ -30,8 +30,6 @@
 </script>
 
 <div>
-    <h1>Yet another Todo App</h1>
-
     <div id="inputs">
         <input type="text" placeholder="Add a new todo" bind:value={newTodoTitle}/>
         <button on:click={addButtonClickHandler}>Add</button>
