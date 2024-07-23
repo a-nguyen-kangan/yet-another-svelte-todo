@@ -1,15 +1,31 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { fetchTodos } from "$lib/fetch_functions";
+    import { fetchTodos, addTodos } from "$lib/fetch_functions";
     import TodoItem from "./TodoItem.svelte";
 
     let todos:any;
+    let newTodoTitle: string = ""
 
     onMount(async () => {
         todos = await fetchTodos();
     });
 
  
+    async function addButtonClickHandler() {
+        const tempTestItem = {
+            title: newTodoTitle,
+            complete: false
+        }
+
+        const result = await addTodos(tempTestItem);
+        // todos = await fetchTodos();
+        
+        // todos.push(tempTestItem);
+        // todos = todos;
+        todos = [...todos, tempTestItem]
+
+        console.log(result);
+    }
 
 </script>
 
@@ -17,8 +33,8 @@
     <h1>Yet another Todo App</h1>
 
     <div id="inputs">
-        <input type="text" placeholder="Add a new todo" />
-        <button>Add</button>
+        <input type="text" placeholder="Add a new todo" bind:value={newTodoTitle}/>
+        <button on:click={addButtonClickHandler}>Add</button>
     </div>
     <hr>
 

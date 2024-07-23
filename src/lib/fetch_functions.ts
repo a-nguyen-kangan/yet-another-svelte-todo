@@ -23,5 +23,24 @@ export async function getTodosFunctional() {
         .catch(error => console.error("Error fetching data:", error));
 
     return result;
+}
+
+export async function addTodos(newItem: any) {
+    const result = await fetch('https://665e45471e9017dc16ef83fe.mockapi.io/api/Todo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newItem)
+        }
+    );
+
+    if (!result.ok) {
+        console.error("Error adding data:", result);
+        return;
+    }
+
+    const response = await result.json();
+    return response;
 
 }
