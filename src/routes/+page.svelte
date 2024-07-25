@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { fetchTodos, addTodos } from "$lib/fetch_functions";
     import TodoItem from "./TodoItem.svelte";
+    import AddTodoInput from "./AddTodoInput.svelte";
 
     let todos:any;
     let newTodoTitle: string = ""
@@ -11,18 +12,21 @@
     });
 
  
-    async function addButtonClickHandler() {
-        const tempTestItem = {
+    async function addTodo(event:any) {
+
+        const newTodoTitle = event.detail.title;
+
+        const newItem = {
             title: newTodoTitle,
             complete: false
         }
 
-        const result = await addTodos(tempTestItem);
+        const result = await addTodos(newItem);
         // todos = await fetchTodos();
         
         // todos.push(tempTestItem);
         // todos = todos;
-        todos = [...todos, tempTestItem]
+        todos = [...todos, newItem]
 
         console.log(result);
     }
@@ -30,10 +34,12 @@
 </script>
 
 <div>
-    <div id="inputs">
+    <!-- <div id="inputs">
         <input type="text" placeholder="Add a new todo" bind:value={newTodoTitle}/>
         <button on:click={addButtonClickHandler}>Add</button>
-    </div>
+    </div> -->
+
+    <AddTodoInput on:addTodo={addTodo}/>
     <hr>
 
     {#if todos}
