@@ -1,4 +1,6 @@
-export async function fetchTodos() {
+import type { TodoItem } from './types';
+
+export async function fetchTodos(): Promise<TodoItem[]> {
         
     // goes to online datastore and fetches todo items
     // await: waits for the promise to resolve - ensures that the data is available before proceeding
@@ -8,7 +10,7 @@ export async function fetchTodos() {
     // if the result is not ok, log the error and return
     if (!result.ok) {
         console.error("Error fetching data:", result);
-        return;
+        return [];
     }
 
     // parse the result as JSON
@@ -43,4 +45,18 @@ export async function addTodos(newItem: any) {
     const response = await result.json();
     return response;
 
+}
+
+export async function deleteTodos(item: TodoItem) {
+    const result = await fetch(`https://665e45471e9017dc16ef83fe.mockapi.io/api/Todo/${item.id}`, {
+        method: 'DELETE'
+    });
+
+    if (!result.ok) {
+        console.error("Error deleting data:", result);
+        return;
+    }
+
+    const response = await result.json();
+    return response;
 }
