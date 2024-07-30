@@ -47,6 +47,7 @@ export async function addTodos(newItem: any) {
 
 }
 
+// THIS PROBABLY WON'T WORK!!!
 export async function deleteTodos(item: TodoItem) {
     const result = await fetch(`https://665e45471e9017dc16ef83fe.mockapi.io/api/Todo/${item.id}`, {
         method: 'DELETE'
